@@ -1,0 +1,13 @@
+{
+  "name": "analisimatematica",
+  "version": "1.0.0",
+  "description": "Questo repository contiene il codice sorgente di **Analisi Pro**, un manuale digitale e interattivo per lo studio dell'analisi matematica e di alcuni argomenti propedeutici. Tutte le pagine sono in lingua italiana e possono essere consultate localmente tramite un comune browser web.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
