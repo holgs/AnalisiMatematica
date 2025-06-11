@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derivate - Manuale di Analisi Matematica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { /* Tailwind CSS configuration */
+            theme: { extend: { colors: { primary: '#1a56db', secondary: '#9333ea', accent: '#0284c7', neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 600: '#4b5563', 800: '#1f2937', }, gradientFrom: '#3b82f6', gradientTo: '#1e40af', } } }
+        }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../js/mathjax-config.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <meta name="description" content="Definizione di derivata, significato geometrico (retta tangente), regole di derivazione, derivate fondamentali e applicazioni.">
+    <link rel="canonical" href="https://www.example.com/sections/derivate.html"> <!-- Replace with actual URL -->
+</head>
+<body class="bg-neutral-50 font-sans">
+    <div id="skip-link-container"></div>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-full md:w-72 bg-neutral-800 text-white md:min-h-screen px-4 py-6 md:fixed md:h-full md:overflow-y-auto z-20 transition-all transform md:translate-x-0 -translate-x-full shadow-lg" aria-label="Menu principale">
+            <div class="flex items-center justify-between md:justify-center mb-6">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Analisi Pro</h1>
+                <button id="close-sidebar" class="md:hidden text-neutral-300 hover:text-white" aria-label="Chiudi menu">
+                    <span class="sr-only">Chiudi menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <nav class="mt-8" role="navigation">
+                <ul class="space-y-1" aria-labelledby="argomenti-sidebar-label">
+                    <li><a href="../index.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200 font-semibold text-lg">Home</a></li>
+                    <li><h2 id="argomenti-sidebar-label" class="px-4 py-2 text-xs text-neutral-400 font-medium uppercase">Argomenti</h2></li>
+                    <li><a href="esponenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Esponenziali e logaritmi</a></li>
+                    <li><a href="goniometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Goniometria</a></li>
+                    <li><a href="trigonometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Trigonometria</a></li>
+                    <li><a href="numeri-complessi.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Numeri complessi</a></li>
+                    <li><a href="geometria-analitica.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Geometria analitica</a></li>
+                    <li><a href="calcolo-combinatorio.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Calcolo combinatorio</a></li>
+                    <li><a href="limiti.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Limiti di funzioni</a></li>
+                    <li><a href="derivate.html" class="block py-2.5 px-4 rounded-lg bg-neutral-700 font-bold transition duration-200">Derivate</a></li>
+                    <li><a href="integrali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Integrali</a></li>
+                    <li><a href="probabilita.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Distribuzioni di probabilità</a></li>
+                    <li><a href="equazioni-differenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Equazioni differenziali</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-72 p-6 md:p-8" role="main" id="main-content-area">
+             <header class="flex items-center justify-between mb-6">
+                <button id="open-sidebar" class="md:hidden bg-neutral-800 text-white p-2.5 rounded-md shadow-md" aria-label="Apri menu" aria-controls="sidebar" aria-expanded="false">
+                    <span class="sr-only">Apri menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                 <div class="relative w-full max-w-lg ml-auto" role="search">
+                    <label for="search-input" class="sr-only">Cerca nel manuale</label>
+                    <input type="search" id="search-input" class="py-2.5 px-4 pl-10 block w-full border-neutral-300 rounded-lg text-sm focus:border-primary focus:ring-primary shadow-sm" placeholder="Cerca Derivate...">
+                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-3"><svg class="h-5 w-5 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div>
+                </div>
+            </header>
+            
+            <div id="search-results-container" class="mb-6" style="display: none;" aria-live="polite">
+                <h3 class="text-xl font-semibold text-neutral-800 mb-3">Risultati Ricerca:</h3>
+                <div id="search-results-output"></div>
+            </div>
+
+            <div id="actual-content-container">
+                <section aria-labelledby="section-title-derivate">
+                    <h2 id="section-title-derivate" class="text-3xl font-bold text-neutral-800 mb-6">Derivate</h2>
+                    <p class="text-lg text-neutral-700 mb-4 intro-text">
+                        La derivata di una funzione misura il tasso di variazione istantaneo della funzione rispetto alla sua variabile. Geometricamente, rappresenta il coefficiente angolare della retta tangente al grafico della funzione in un dato punto.
+                    </p>
+    
+                    <!-- Interactive Tangent Line Visualizer -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Visualizzatore Retta Tangente</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Scegli una funzione $f(x)$ e un punto $x_0$. Osserva come la retta tangente (in verde) approssima la funzione (in blu) vicino a $x_0$. Il coefficiente angolare della tangente è $f'(x_0)$.</p>
+                        <div id="tangent-line-visualizer">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+
+                    <!-- Video Placeholder -->
+                    <!-- [VIDEO QUI: Significato geometrico della derivata e animazione della retta secante che diventa tangente] -->
+    
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-8 mb-4">Teoria Essenziale</h3>
+                    <div class="space-y-4">
+                        <p><strong>Definizione di Derivata:</strong> La derivata di una funzione $f(x)$ nel punto $x_0$, indicata con $f'(x_0)$, è definita come il limite (se esiste finito) del rapporto incrementale:</p>
+                        <p class="text-center text-lg math"> $f'(x_0) = \lim_{h \to 0} \frac{f(x_0+h) - f(x_0)}{h}$ </p>
+                        <p><strong>Regole di Derivazione:</strong></p>
+                        <ul class="list-disc list-inside ml-4 space-y-1 text-neutral-700">
+                            <li>Derivata di una costante: $D[c] = 0$</li>
+                            <li>Derivata di $x^n$: $D[x^n] = nx^{n-1}$</li>
+                            <li>Derivata di una somma: $D[f(x) + g(x)] = f'(x) + g'(x)$</li>
+                            <li>Derivata di un prodotto: $D[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)$</li>
+                            <li>Derivata di un quoziente: $D[\frac{f(x)}{g(x)}] = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}$</li>
+                            <li>Derivata di una funzione composta (regola della catena): $D[f(g(x))] = f'(g(x)) \cdot g'(x)$</li>
+                        </ul>
+                        <p><strong>Derivate Fondamentali:</strong> $D[e^x]=e^x$, $D[\ln x]=\frac{1}{x}$, $D[\sin x]=\cos x$, $D[\cos x]=-\sin x$, etc.</p>
+                        <p><strong>Applicazioni:</strong> Studio di massimi e minimi, monotonia, concavità, problemi di ottimizzazione, velocità e accelerazione in fisica.</p>
+                    </div>
+
+                    <!-- Interactive Derivative Rules Explorer (Placeholder) -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg" id="derivative-rules-explorer">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Esploratore Regole di Derivazione</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Seleziona due funzioni $f(x)$ e $g(x)$ e una regola (somma, prodotto, quoziente) per vedere la derivata risultante. (In sviluppo)</p>
+                    </div>
+
+                    <!-- Function Plotter with Derivative -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Grafico di Funzione e sua Derivata</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Scegli una funzione $f(x)$ per visualizzare il suo grafico e il grafico della sua derivata $f'(x)$. Osserva la relazione tra crescenza/decrescenza di $f(x)$ e il segno di $f'(x)$.</p>
+                        <div id="function-derivative-plotter">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                    
+                    <!-- Video Placeholder -->
+                    <!-- [VIDEO QUI: Esempi di calcolo di derivate usando le regole (prodotto, quoziente, catena)] -->
+    
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-10 mb-4">Esercizi</h3>
+                    <p class="text-neutral-600 mb-6">Calcola le derivate delle seguenti funzioni utilizzando le regole appropriate.</p>
+                    
+                    <!-- Parametric Exercise 1 -->
+                    <div class="parametric-exercise" data-section="derivate" data-exercise-id="poly-derivative-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 1: Derivata di un Polinomio</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 2 -->
+                    <div class="parametric-exercise" data-section="derivate" data-exercise-id="product-rule-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 2: Regola del Prodotto</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 3 (Placeholder) -->
+                    <div class="parametric-exercise" data-section="derivate" data-exercise-id="quotient-rule-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 3: Regola del Quoziente</h4>
+                        <div class="exercise-text"><p>Calcolare la derivata di $f(x) = \frac{ax+b}{cx+d}$. (Implementazione JS richiesta)</p>
+                         <div class="parametric-inputs mt-2 grid grid-cols-2 gap-2">
+                            $a$:<input type="number" name="a_quot" value="1"> $b$:<input type="number" name="b_quot" value="2">
+                            $c$:<input type="number" name="c_quot" value="1"> $d$:<input type="number" name="d_quot" value="-1">
+                         </div>
+                        </div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false"><span class="toggle-text">Mostra soluzione</span><svg class="toggle-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="solution-content"><p>Per $f(x)=\frac{x+2}{x-1}$: $f'(x) = \frac{1(x-1) - (x+2)1}{(x-1)^2} = \frac{x-1-x-2}{(x-1)^2} = \frac{-3}{(x-1)^2}$.</p></div>
+                    </div>
+                    
+                    <!-- Parametric Exercise 4 & 5 (Placeholders) -->
+                    <p class="text-center text-neutral-500 my-4 italic">(Placeholder per Esercizio Parametrico 4: Regola della Catena e 5: Tangente a una curva)</p>
+
+                    <!-- Static Exercises (Placeholders for 10 more) -->
+                    <div class="mt-6 p-4 border border-neutral-200 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio 6: Calcola la derivata di $f(x) = x^3 \sin(x)$</h4>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content"><p>$f'(x) = D[x^3]\sin(x) + x^3 D[\sin(x)] = 3x^2\sin(x) + x^3\cos(x)$.</p></div>
+                    </div>
+                     <p class="text-center text-neutral-500 my-8 italic">(Altri 9 esercizi standard verranno aggiunti qui)</p>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/interactive.js"></script>
+    <script src="../js/derivate.js"></script>
+</body>
+</html>

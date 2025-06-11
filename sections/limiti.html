@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limiti di Funzioni - Manuale di Analisi Matematica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { /* Tailwind CSS configuration */
+            theme: { extend: { colors: { primary: '#1a56db', secondary: '#9333ea', accent: '#0284c7', neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 600: '#4b5563', 800: '#1f2937', }, gradientFrom: '#3b82f6', gradientTo: '#1e40af', } } }
+        }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../js/mathjax-config.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+     <meta name="description" content="Concetto di limite, definizione formale (epsilon-delta), teoremi sui limiti, forme indeterminate e limiti notevoli.">
+    <link rel="canonical" href="https://www.example.com/sections/limiti.html"> <!-- Replace with actual URL -->
+</head>
+<body class="bg-neutral-50 font-sans">
+    <div id="skip-link-container"></div>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-full md:w-72 bg-neutral-800 text-white md:min-h-screen px-4 py-6 md:fixed md:h-full md:overflow-y-auto z-20 transition-all transform md:translate-x-0 -translate-x-full shadow-lg" aria-label="Menu principale">
+            <div class="flex items-center justify-between md:justify-center mb-6">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Analisi Pro</h1>
+                <button id="close-sidebar" class="md:hidden text-neutral-300 hover:text-white" aria-label="Chiudi menu">
+                    <span class="sr-only">Chiudi menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <nav class="mt-8" role="navigation">
+                <ul class="space-y-1" aria-labelledby="argomenti-sidebar-label">
+                    <li><a href="../index.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200 font-semibold text-lg">Home</a></li>
+                    <li><h2 id="argomenti-sidebar-label" class="px-4 py-2 text-xs text-neutral-400 font-medium uppercase">Argomenti</h2></li>
+                    <li><a href="esponenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Esponenziali e logaritmi</a></li>
+                    <li><a href="goniometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Goniometria</a></li>
+                    <li><a href="trigonometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Trigonometria</a></li>
+                    <li><a href="numeri-complessi.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Numeri complessi</a></li>
+                    <li><a href="geometria-analitica.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Geometria analitica</a></li>
+                    <li><a href="calcolo-combinatorio.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Calcolo combinatorio</a></li>
+                    <li><a href="limiti.html" class="block py-2.5 px-4 rounded-lg bg-neutral-700 font-bold transition duration-200">Limiti di funzioni</a></li>
+                    <li><a href="derivate.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Derivate</a></li>
+                    <li><a href="integrali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Integrali</a></li>
+                    <li><a href="probabilita.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Distribuzioni di probabilità</a></li>
+                    <li><a href="equazioni-differenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Equazioni differenziali</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-72 p-6 md:p-8" role="main" id="main-content-area">
+            <header class="flex items-center justify-between mb-6">
+                <button id="open-sidebar" class="md:hidden bg-neutral-800 text-white p-2.5 rounded-md shadow-md" aria-label="Apri menu" aria-controls="sidebar" aria-expanded="false">
+                    <span class="sr-only">Apri menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                 <div class="relative w-full max-w-lg ml-auto" role="search">
+                    <label for="search-input" class="sr-only">Cerca nel manuale</label>
+                    <input type="search" id="search-input" class="py-2.5 px-4 pl-10 block w-full border-neutral-300 rounded-lg text-sm focus:border-primary focus:ring-primary shadow-sm" placeholder="Cerca Limiti...">
+                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-3"><svg class="h-5 w-5 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div>
+                </div>
+            </header>
+            
+            <div id="search-results-container" class="mb-6" style="display: none;" aria-live="polite">
+                <h3 class="text-xl font-semibold text-neutral-800 mb-3">Risultati Ricerca:</h3>
+                <div id="search-results-output"></div>
+            </div>
+
+            <div id="actual-content-container">
+                <section aria-labelledby="section-title-limiti">
+                    <h2 id="section-title-limiti" class="text-3xl font-bold text-neutral-800 mb-6">Limiti di Funzioni</h2>
+                    <p class="text-lg text-neutral-700 mb-4 intro-text">
+                        Il concetto di limite è uno dei pilastri fondamentali dell'analisi matematica. Permette di descrivere il comportamento di una funzione quando la sua variabile indipendente si avvicina a un certo valore (finito o infinito).
+                    </p>
+    
+                    <!-- Interactive Limit Visualizer -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Visualizzatore Interattivo di Limiti</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Seleziona una funzione e un punto $x_0$ per osservare graficamente il comportamento della funzione e il valore del limite (se esiste).</p>
+                        <div id="limit-visualizer">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+
+                    <!-- Video Placeholder -->
+                    <!-- [VIDEO QUI: Introduzione intuitiva al concetto di limite con esempi grafici] -->
+    
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-8 mb-4">Teoria Essenziale</h3>
+                    <div class="space-y-4">
+                        <p><strong>Definizione Intuitiva di Limite:</strong> Si dice che $\lim_{x \to x_0} f(x) = L$ se, man mano che $x$ si avvicina a $x_0$ (senza mai eguagliarlo), i valori di $f(x)$ si avvicinano arbitrariamente a $L$.</p>
+                        <p><strong>Definizione Formale ($\epsilon-\delta$):</strong> $\lim_{x \to x_0} f(x) = L \iff \forall \epsilon > 0, \exists \delta > 0 \text{ tale che } 0 < |x - x_0| < \delta \implies |f(x) - L| < \epsilon$.</p>
+                        <p><strong>Teoremi sui Limiti:</strong> Somma, prodotto, quoziente, composizione di funzioni (sotto opportune condizioni).</p>
+                        <p><strong>Forme Indeterminate:</strong> Situazioni come $\frac{0}{0}, \frac{\infty}{\infty}, 0 \cdot \infty, \infty - \infty, 1^\infty, 0^0, \infty^0$ che richiedono ulteriori analisi (es. Teorema di De L'Hôpital, limiti notevoli).</p>
+                        <p><strong>Limiti Notevoli:</strong></p>
+                        <ul class="list-disc list-inside ml-4 space-y-1 text-neutral-700">
+                            <li>$\lim_{x \to 0} \frac{\sin x}{x} = 1$</li>
+                            <li>$\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}$</li>
+                            <li>$\lim_{x \to \infty} (1 + \frac{1}{x})^x = e$</li>
+                            <li>$\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$</li>
+                            <li>$\lim_{x \to 0} \frac{e^x - 1}{x} = 1$</li>
+                        </ul>
+                    </div>
+
+                    <!-- Interactive Epsilon-Delta Visualizer (Placeholder) -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg" id="epsilon-delta-visualizer">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Visualizzatore $\epsilon-\delta$ (Concettuale)</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Questo strumento (in sviluppo) permetterà di esplorare la definizione formale di limite. Si potrà scegliere una funzione, un punto $x_0$, un valore di $\epsilon$ e trovare un $\delta$ corrispondente.</p>
+                        <!-- [VIDEO QUI: Spiegazione della definizione epsilon-delta con animazioni] -->
+                    </div>
+
+                    <!-- Interactive Limit Properties Explorer (Placeholder) -->
+                     <div class="interactive-container my-8 p-6 rounded-lg shadow-lg" id="limit-properties-explorer">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Esploratore Proprietà dei Limiti</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Verifica numericamente le proprietà dei limiti (somma, prodotto, quoziente) per funzioni date. (In sviluppo)</p>
+                    </div>
+    
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-10 mb-4">Esercizi</h3>
+                    <p class="text-neutral-600 mb-6">Calcola i limiti proposti, prestando attenzione alle forme indeterminate e utilizzando i limiti notevoli quando necessario.</p>
+                    
+                    <!-- Parametric Exercise 1 -->
+                    <div class="parametric-exercise" data-section="limiti" data-exercise-id="polynomial-limit-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 1: Limite di un Polinomio</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 2 -->
+                    <div class="parametric-exercise" data-section="limiti" data-exercise-id="rational-limit-finite-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 2: Limite di Funzione Razionale (denominatore $\neq 0$)</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 3 -->
+                    <div class="parametric-exercise" data-section="limiti" data-exercise-id="limit-sinc-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 3: Limite Notevole $\lim_{x \to 0} \frac{\sin(kx)}{x}$</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+                    
+                    <!-- Parametric Exercise 4 & 5 (Placeholders) -->
+                    <p class="text-center text-neutral-500 my-4 italic">(Placeholder per Esercizio Parametrico 4: Limite con forma indeterminata $0/0$ e 5: Limite all'infinito)</p>
+
+                    <!-- Static Exercises (Placeholders for 10 more) -->
+                    <div class="mt-6 p-4 border border-neutral-200 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio 6: Calcola $\lim_{x \to 2} \frac{x^2-4}{x-2}$</h4>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content"><p>Forma indeterminata $\frac{0}{0}$. Scomponendo il numeratore: $\lim_{x \to 2} \frac{(x-2)(x+2)}{x-2} = \lim_{x \to 2} (x+2) = 2+2 = 4$.</p></div>
+                    </div>
+                    <p class="text-center text-neutral-500 my-8 italic">(Altri 9 esercizi standard verranno aggiunti qui)</p>
+                    
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/interactive.js"></script>
+    <script src="../js/limiti.js"></script>
+</body>
+</html>

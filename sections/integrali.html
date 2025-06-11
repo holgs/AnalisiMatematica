@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrali - Manuale di Analisi Matematica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { /* Tailwind CSS configuration */
+            theme: { extend: { colors: { primary: '#1a56db', secondary: '#9333ea', accent: '#0284c7', neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 600: '#4b5563', 800: '#1f2937', }, gradientFrom: '#3b82f6', gradientTo: '#1e40af', } } }
+        }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../js/mathjax-config.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <meta name="description" content="Integrali indefiniti e definiti, significato geometrico (area sottesa), Teorema Fondamentale del Calcolo Integrale, tecniche di integrazione.">
+    <link rel="canonical" href="https://www.example.com/sections/integrali.html"> <!-- Replace with actual URL -->
+</head>
+<body class="bg-neutral-50 font-sans">
+    <div id="skip-link-container"></div>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-full md:w-72 bg-neutral-800 text-white md:min-h-screen px-4 py-6 md:fixed md:h-full md:overflow-y-auto z-20 transition-all transform md:translate-x-0 -translate-x-full shadow-lg" aria-label="Menu principale">
+            <div class="flex items-center justify-between md:justify-center mb-6">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Analisi Pro</h1>
+                <button id="close-sidebar" class="md:hidden text-neutral-300 hover:text-white" aria-label="Chiudi menu">
+                    <span class="sr-only">Chiudi menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <nav class="mt-8" role="navigation">
+                <ul class="space-y-1" aria-labelledby="argomenti-sidebar-label">
+                    <li><a href="../index.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200 font-semibold text-lg">Home</a></li>
+                    <li><h2 id="argomenti-sidebar-label" class="px-4 py-2 text-xs text-neutral-400 font-medium uppercase">Argomenti</h2></li>
+                    <li><a href="esponenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Esponenziali e logaritmi</a></li>
+                    <li><a href="goniometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Goniometria</a></li>
+                    <li><a href="trigonometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Trigonometria</a></li>
+                    <li><a href="numeri-complessi.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Numeri complessi</a></li>
+                    <li><a href="geometria-analitica.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Geometria analitica</a></li>
+                    <li><a href="calcolo-combinatorio.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Calcolo combinatorio</a></li>
+                    <li><a href="limiti.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Limiti di funzioni</a></li>
+                    <li><a href="derivate.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Derivate</a></li>
+                    <li><a href="integrali.html" class="block py-2.5 px-4 rounded-lg bg-neutral-700 font-bold transition duration-200">Integrali</a></li>
+                    <li><a href="probabilita.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Distribuzioni di probabilità</a></li>
+                    <li><a href="equazioni-differenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Equazioni differenziali</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-72 p-6 md:p-8" role="main" id="main-content-area">
+             <header class="flex items-center justify-between mb-6">
+                <button id="open-sidebar" class="md:hidden bg-neutral-800 text-white p-2.5 rounded-md shadow-md" aria-label="Apri menu" aria-controls="sidebar" aria-expanded="false">
+                    <span class="sr-only">Apri menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                 <div class="relative w-full max-w-lg ml-auto" role="search">
+                    <label for="search-input" class="sr-only">Cerca nel manuale</label>
+                    <input type="search" id="search-input" class="py-2.5 px-4 pl-10 block w-full border-neutral-300 rounded-lg text-sm focus:border-primary focus:ring-primary shadow-sm" placeholder="Cerca Integrali...">
+                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-3"><svg class="h-5 w-5 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div>
+                </div>
+            </header>
+            
+            <div id="search-results-container" class="mb-6" style="display: none;" aria-live="polite">
+                <h3 class="text-xl font-semibold text-neutral-800 mb-3">Risultati Ricerca:</h3>
+                <div id="search-results-output"></div>
+            </div>
+
+            <div id="actual-content-container">
+                <section aria-labelledby="section-title-integrali">
+                    <h2 id="section-title-integrali" class="text-3xl font-bold text-neutral-800 mb-6">Integrali Indefiniti e Definiti</h2>
+                    <p class="text-lg text-neutral-700 mb-4 intro-text">
+                        L'integrazione è l'operazione inversa della derivazione. L'integrale indefinito di una funzione $f(x)$ è l'insieme di tutte le sue primitive $F(x)+C$. L'integrale definito $\int_a^b f(x)dx$ rappresenta l'area (con segno) tra il grafico di $f(x)$ e l'asse $x$ nell'intervallo $[a,b]$.
+                    </p>
+    
+                    <!-- Interactive Area Under Curve Visualizer -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Visualizzatore Area Sottesa dalla Curva</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Scegli una funzione $f(x)$ e gli estremi di integrazione $a$ e $b$ per visualizzare l'area sottesa e il valore dell'integrale definito $\int_a^b f(x)dx$.</p>
+                        <div id="area-under-curve-visualizer">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+
+                    <!-- Video Placeholder -->
+                    <!-- [VIDEO QUI:
+ Significato geometrico dell'integrale definito come area (con animazione)] -->
+    
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-8 mb-4">Teoria Essenziale</h3>
+                    <div class="space-y-4">
+                        <p><strong>Integrale Indefinito:</strong> $\int f(x)dx = F(x) + C$, dove $F'(x) = f(x)$ e $C$ è una costante arbitraria.</p>
+                        <p><strong>Integrale Definito:</strong> Se $f(x)$ è continua in $[a,b]$, l'integrale definito è $\int_a^b f(x)dx$. Esso rappresenta l'area netta tra il grafico di $f(x)$ e l'asse x.</p>
+                        <p><strong>Teorema Fondamentale del Calcolo Integrale:</strong> Se $F(x)$ è una primitiva di $f(x)$, allora $\int_a^b f(x)dx = F(b) - F(a)$.</p>
+                        <p><strong>Proprietà degli Integrali:</strong></p>
+                        <ul class="list-disc list-inside ml-4 space-y-1 text-neutral-700">
+                            <li>Linearità: $\int (kf(x) + lg(x))dx = k\int f(x)dx + l\int g(x)dx$</li>
+                            <li>Additività rispetto all'intervallo: $\int_a^c f(x)dx = \int_a^b f(x)dx + \int_b^c f(x)dx$</li>
+                        </ul>
+                        <p><strong>Tecniche di Integrazione:</strong></p>
+                         <ul class="list-disc list-inside ml-4 space-y-1 text-neutral-700">
+                            <li>Integrazione per parti: $\int f(x)g'(x)dx = f(x)g(x) - \int f'(x)g(x)dx$</li>
+                            <li>Integrazione per sostituzione: Si pone $x = \phi(t)$, da cui $dx = \phi'(t)dt$.</li>
+                            <li>Integrazione di funzioni razionali fratte.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Interactive Integral Properties Explorer (Placeholder) -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg" id="integral-properties-explorer">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Esploratore Proprietà degli Integrali</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Verifica numericamente le proprietà di linearità e additività degli integrali definiti. (In sviluppo)</p>
+                    </div>
+
+                    <!-- Fundamental Theorem Visualizer (Placeholder) -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg" id="fundamental-theorem-visualizer">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Visualizzatore Teorema Fondamentale del Calcolo</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Visualizza come la funzione integrale $G(x) = \int_a^x f(t)dt$ ha per derivata la funzione integranda $f(x)$. (In sviluppo)</p>
+                    </div>
+
+                    <!-- Video Placeholder -->
+                    <!-- [VIDEO QUI: Esempi di calcolo di integrali definiti e applicazione del Teorema Fondamentale] -->
+    
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-10 mb-4">Esercizi</h3>
+                    <p class="text-neutral-600 mb-6">Calcola gli integrali indefiniti e definiti, utilizzando le tecniche appropriate.</p>
+                    
+                    <!-- Parametric Exercise 1 -->
+                    <div class="parametric-exercise" data-section="integrali" data-exercise-id="poly-integral-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 1: Integrale Indefinito di un Polinomio</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 2 -->
+                    <div class="parametric-exercise" data-section="integrali" data-exercise-id="definite-integral-poly-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 2: Integrale Definito di un Polinomio</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 3 (Placeholder) -->
+                    <div class="parametric-exercise" data-section="integrali" data-exercise-id="integration-by-parts-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 3: Integrazione per Parti</h4>
+                        <div class="exercise-text"><p>Calcolare $\int x e^{ax} dx$. (Implementazione JS richiesta)</p>
+                          <div class="parametric-inputs mt-2">$a$: <input type="number" name="a_parts" value="2" class="p-1 border rounded"></div>
+                        </div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false"><span class="toggle-text">Mostra soluzione</span><svg class="toggle-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="solution-content"><p>Per $a=2$: $\int xe^{2x}dx = x\frac{e^{2x}}{2} - \int 1 \cdot \frac{e^{2x}}{2}dx = \frac{1}{2}xe^{2x} - \frac{1}{4}e^{2x} + C$.</p></div>
+                    </div>
+                    
+                    <!-- Parametric Exercise 4 & 5 (Placeholders) -->
+                    <p class="text-center text-neutral-500 my-4 italic">(Placeholder per Esercizio Parametrico 4: Integrazione per Sostituzione e 5: Area tra curve)</p>
+                    
+                    <!-- Static Exercises (Placeholders for 10 more) -->
+                    <div class="mt-6 p-4 border border-neutral-200 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio 6: Calcola $\int_0^{\pi/2} \cos(x) dx$</h4>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content"><p>La primitiva di $\cos(x)$ è $\sin(x)$. Quindi $\int_0^{\pi/2} \cos(x) dx = [\sin(x)]_0^{\pi/2} = \sin(\pi/2) - \sin(0) = 1 - 0 = 1$.</p></div>
+                    </div>
+                    <p class="text-center text-neutral-500 my-8 italic">(Altri 9 esercizi standard verranno aggiunti qui)</p>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/interactive.js"></script>
+    <script src="../js/integrali.js"></script>
+</body>
+</html>

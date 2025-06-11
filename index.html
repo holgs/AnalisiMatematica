@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuale Interattivo di Analisi Matematica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a56db', // Blu Scuro
+                        secondary: '#9333ea', // Viola
+                        accent: '#0284c7', // Ciano
+                        neutral: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            600: '#4b5563',
+                            800: '#1f2937',
+                        },
+                        gradientFrom: '#3b82f6', // Blu Medio
+                        gradientTo: '#1e40af', // Blu Intenso
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- MathJax Configuration -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../js/mathjax-config.js"></script> <!-- Adjusted path for section pages -->
+    <link rel="stylesheet" href="../css/styles.css"> <!-- Adjusted path for section pages -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/heroicons/2.0.18/24/outline/magnifying-glass.svg" rel="stylesheet"> <!-- For search icon -->
+    <meta name="description" content="Manuale interattivo di analisi matematica per liceo scientifico. Include esponenziali, logaritmi, goniometria, trigonometria, numeri complessi, geometria analitica, calcolo combinatorio, limiti, derivate, integrali, probabilità, equazioni differenziali.">
+    <link rel="canonical" href="https://www.example.com/index.html"> <!-- Replace with actual URL -->
+</head>
+<body class="bg-neutral-50 font-sans">
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="w-full md:w-72 bg-neutral-800 text-white md:min-h-screen px-4 py-6 md:fixed md:h-full md:overflow-y-auto z-20 transition-all transform md:translate-x-0 -translate-x-full shadow-lg" aria-label="Menu principale">
+            <div class="flex items-center justify-between md:justify-center mb-6">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Analisi Pro</h1>
+                <button id="close-sidebar" class="md:hidden text-neutral-300 hover:text-white" aria-label="Chiudi menu">
+                    <span class="sr-only">Chiudi menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <nav class="mt-8" role="navigation">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="../index.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200 font-semibold text-lg">
+                            Home
+                        </a>
+                    </li>
+                    <li><h2 class="px-4 py-2 text-xs text-neutral-400 font-medium uppercase" id="argomenti-sidebar-label">Argomenti</h2></li>
+                    <li role="listitem">
+                        <a href="esponenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Esponenziali e logaritmi
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="goniometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Goniometria
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="trigonometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Trigonometria
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="numeri-complessi.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Numeri complessi
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="geometria-analitica.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Geometria analitica
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="calcolo-combinatorio.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Calcolo combinatorio
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="limiti.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Limiti di funzioni
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="derivate.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Derivate
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="integrali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Integrali
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="probabilita.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Distribuzioni di probabilità
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="equazioni-differenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Equazioni differenziali
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="mt-10 pt-6 border-t border-neutral-700">
+                 <h2 class="px-4 py-2 text-xs text-neutral-400 font-medium uppercase" id="risorse-sidebar-label">Risorse</h2>
+                <ul class="space-y-1" aria-labelledby="risorse-sidebar-label">
+                    <li role="listitem">
+                        <a href="#" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Glossario (Prossimamente)
+                        </a>
+                    </li>
+                    <li role="listitem">
+                        <a href="#" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">
+                            Indice Analitico (Prossimamente)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-72 p-6 md:p-8" role="main" id="main-content-area">
+            <header class="flex items-center justify-between mb-6">
+                <button id="open-sidebar" class="md:hidden bg-neutral-800 text-white p-2.5 rounded-md shadow-md" aria-label="Apri menu" aria-controls="sidebar" aria-expanded="false">
+                     <span class="sr-only">Apri menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                 <!-- Search Bar -->
+                <div class="relative w-full max-w-lg ml-auto" role="search">
+                    <label for="search-input" class="sr-only">Cerca nel manuale</label>
+                    <input type="search" id="search-input" class="py-2.5 px-4 pl-10 block w-full border-neutral-300 rounded-lg text-sm focus:border-primary focus:ring-primary shadow-sm" placeholder="Cerca nel manuale...">
+                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-3">
+                        <svg class="h-5 w-5 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </header>
+            
+            <div id="search-results-container" class="mb-6" style="display: none;" aria-live="polite">
+                 <h3 class="text-xl font-semibold text-neutral-800 mb-3">Risultati Ricerca:</h3>
+                 <div id="search-results-output">
+                     <!-- Search results will be displayed here by search.js -->
+                 </div>
+             </div>
+
+            <div id="main-page-content">
+                <section class="bg-gradient-to-br from-gradientFrom to-gradientTo text-white shadow-xl rounded-xl p-8 md:p-12 mb-8" aria-labelledby="main-title">
+                    <h2 id="main-title" class="text-4xl md:text-5xl font-bold mb-4">Manuale Interattivo di Analisi Matematica</h2>
+                    <p class="text-lg md:text-xl text-blue-100 mb-6">Benvenuto! Esplora i concetti fondamentali dell'analisi matematica con spiegazioni chiare, esempi interattivi ed esercizi pratici, pensati per studenti del liceo scientifico.</p>
+                    <a href="#argomenti" class="inline-block bg-white text-primary font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-50 transition duration-300 transform hover:scale-105">
+                        Inizia ad imparare
+                    </a>
+                </section>
+
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 mb-8" aria-labelledby="features-title">
+                    <h3 id="features-title" class="sr-only">Caratteristiche del Manuale</h3>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center justify-center w-12 h-12 bg-blue-100 text-primary rounded-full mb-4" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-neutral-800 mb-2">Teoria Chiara</h4>
+                        <p class="text-neutral-600">Spiegazioni teoriche concise che evidenziano i concetti chiave e le loro relazioni.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+                         <div class="flex items-center justify-center w-12 h-12 bg-purple-100 text-secondary rounded-full mb-4" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-neutral-800 mb-2">Elementi Interattivi</h4>
+                        <p class="text-neutral-600">Grafici, simulazioni e widget dinamici per visualizzare e comprendere i concetti.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+                         <div class="flex items-center justify-center w-12 h-12 bg-green-100 text-green-600 rounded-full mb-4" aria-hidden="true">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                               <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                           </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-neutral-800 mb-2">Esercizi Pratici</h4>
+                        <p class="text-neutral-600">Vasta collezione di esercizi risolti, inclusi problemi parametrici.</p>
+                    </div>
+                </section>
+
+                <section id="argomenti" aria-labelledby="argomenti-title">
+                    <h3 id="argomenti-title" class="text-3xl font-bold text-neutral-800 mt-12 mb-6 text-center">Argomenti Trattati</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <a href="sections/esponenziali.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-blue-500">
+                            <h4 class="font-semibold text-xl text-blue-700 group-hover:text-blue-800">Esponenziali e logaritmi</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Funzioni, proprietà ed equazioni.</p>
+                        </a>
+                        <a href="sections/goniometria.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-purple-500">
+                            <h4 class="font-semibold text-xl text-purple-700 group-hover:text-purple-800">Goniometria</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Angoli, funzioni goniometriche e identità.</p>
+                        </a>
+                        <a href="sections/trigonometria.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-green-500">
+                            <h4 class="font-semibold text-xl text-green-700 group-hover:text-green-800">Trigonometria</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Risoluzione di triangoli e applicazioni.</p>
+                        </a>
+                        <a href="sections/numeri-complessi.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-yellow-500">
+                            <h4 class="font-semibold text-xl text-yellow-700 group-hover:text-yellow-800">Numeri complessi</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Operazioni, forme e radici.</p>
+                        </a>
+                        <a href="sections/geometria-analitica.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-red-500">
+                            <h4 class="font-semibold text-xl text-red-700 group-hover:text-red-800">Geometria analitica</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Rette, coniche nel piano e nello spazio.</p>
+                        </a>
+                        <a href="sections/calcolo-combinatorio.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-indigo-500">
+                            <h4 class="font-semibold text-xl text-indigo-700 group-hover:text-indigo-800">Calcolo combinatorio</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Permutazioni, disposizioni e combinazioni.</p>
+                        </a>
+                        <a href="sections/limiti.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-teal-500">
+                            <h4 class="font-semibold text-xl text-teal-700 group-hover:text-teal-800">Limiti di funzioni</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Concetti, teoremi e calcolo.</p>
+                        </a>
+                        <a href="sections/derivate.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-pink-500">
+                            <h4 class="font-semibold text-xl text-pink-700 group-hover:text-pink-800">Derivate</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Definizione, calcolo e applicazioni.</p>
+                        </a>
+                        <a href="sections/integrali.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-gray-500">
+                            <h4 class="font-semibold text-xl text-gray-700 group-hover:text-gray-800">Integrali</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Indefiniti, definiti e tecniche di integrazione.</p>
+                        </a>
+                         <a href="sections/probabilita.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-blue-300">
+                            <h4 class="font-semibold text-xl text-blue-500 group-hover:text-blue-600">Distribuzioni di probabilità</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Eventi, variabili casuali, distribuzione Normale.</p>
+                        </a>
+                        <a href="sections/equazioni-differenziali.html" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-orange-500">
+                            <h4 class="font-semibold text-xl text-orange-700 group-hover:text-orange-800">Equazioni differenziali</h4>
+                            <p class="text-sm text-neutral-600 mt-1 group-hover:text-neutral-700">Modellare il cambiamento, soluzioni.</p>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="mt-12 p-8 bg-neutral-100 rounded-xl border border-neutral-200" aria-labelledby="how-to-use-title">
+                    <h3 id="how-to-use-title" class="text-2xl font-semibold text-neutral-800 mb-4">Come utilizzare questo manuale</h3>
+                    <p class="text-neutral-700 mb-4">Questo manuale interattivo è progettato per aiutarti a comprendere a fondo l'analisi matematica attraverso la teoria, gli esempi pratici e gli esercizi interattivi.</p>
+                    <ul class="list-disc list-inside space-y-2 text-neutral-700">
+                        <li>Utilizza la barra laterale (accessibile tramite il pulsante menu su mobile) per navigare tra i diversi argomenti.</li>
+                        <li>Esplora gli elementi interattivi in ogni sezione per visualizzare concetti e formule.</li>
+                        <li>Risolvi gli esercizi proposti, inclusi quelli parametrici, per consolidare le tue conoscenze.</li>
+                        <li>Usa la barra di ricerca in alto per trovare rapidamente argomenti, definizioni o esercizi specifici.</li>
+                        <li>Controlla il glossario e l'indice analitico (prossimamente) per riferimenti rapidi.</li>
+                    </ul>
+                </section>
+            </div> <!-- End #main-page-content -->
+        </main>
+    </div>
+    <footer class="md:ml-72 p-4 text-center text-sm text-neutral-600 border-t border-neutral-200">
+        <p>&copy; <span id="current-year"></span> Analisi Pro - Manuale Interattivo. Tutti i diritti riservati.</p>
+        <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
+    </footer>
+
+    <script src="../js/main.js"></script> <!-- Adjusted path for section pages -->
+    <script src="../js/navigation.js"></script> <!-- Adjusted path for section pages -->
+    <script src="../js/search.js"></script> <!-- Adjusted path for section pages -->
+</body>
+</html>
+

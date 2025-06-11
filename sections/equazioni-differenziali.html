@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equazioni Differenziali - Manuale di Analisi Matematica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { /* Tailwind CSS configuration */
+            theme: { extend: { colors: { primary: '#1a56db', secondary: '#9333ea', accent: '#0284c7', neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 600: '#4b5563', 800: '#1f2937', }, gradientFrom: '#3b82f6', gradientTo: '#1e40af', } } }
+        }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../js/mathjax-config.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <meta name="description" content="Introduzione alle equazioni differenziali ordinarie (EDO): classificazione, metodi risolutivi per EDO del primo ordine (separabili, lineari) e del secondo ordine a coefficienti costanti.">
+    <link rel="canonical" href="https://www.example.com/sections/equazioni-differenziali.html"> <!-- Replace with actual URL -->
+</head>
+<body class="bg-neutral-50 font-sans">
+    <div id="skip-link-container"></div>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-full md:w-72 bg-neutral-800 text-white md:min-h-screen px-4 py-6 md:fixed md:h-full md:overflow-y-auto z-20 transition-all transform md:translate-x-0 -translate-x-full shadow-lg" aria-label="Menu principale">
+            <div class="flex items-center justify-between md:justify-center mb-6">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Analisi Pro</h1>
+                <button id="close-sidebar" class="md:hidden text-neutral-300 hover:text-white" aria-label="Chiudi menu">
+                    <span class="sr-only">Chiudi menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <nav class="mt-8" role="navigation">
+                <ul class="space-y-1" aria-labelledby="argomenti-sidebar-label">
+                    <li><a href="../index.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200 font-semibold text-lg">Home</a></li>
+                    <li><h2 id="argomenti-sidebar-label" class="px-4 py-2 text-xs text-neutral-400 font-medium uppercase">Argomenti</h2></li>
+                    <li><a href="esponenziali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Esponenziali e logaritmi</a></li>
+                    <li><a href="goniometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Goniometria</a></li>
+                    <li><a href="trigonometria.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Trigonometria</a></li>
+                    <li><a href="numeri-complessi.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Numeri complessi</a></li>
+                    <li><a href="geometria-analitica.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Geometria analitica</a></li>
+                    <li><a href="calcolo-combinatorio.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Calcolo combinatorio</a></li>
+                    <li><a href="limiti.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Limiti di funzioni</a></li>
+                    <li><a href="derivate.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Derivate</a></li>
+                    <li><a href="integrali.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Integrali</a></li>
+                    <li><a href="probabilita.html" class="block py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition duration-200">Distribuzioni di probabilità</a></li>
+                    <li><a href="equazioni-differenziali.html" class="block py-2.5 px-4 rounded-lg bg-neutral-700 font-bold transition duration-200">Equazioni differenziali</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-72 p-6 md:p-8" role="main" id="main-content-area">
+             <header class="flex items-center justify-between mb-6">
+                <button id="open-sidebar" class="md:hidden bg-neutral-800 text-white p-2.5 rounded-md shadow-md" aria-label="Apri menu" aria-controls="sidebar" aria-expanded="false">
+                    <span class="sr-only">Apri menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                 <div class="relative w-full max-w-lg ml-auto" role="search">
+                    <label for="search-input" class="sr-only">Cerca nel manuale</label>
+                    <input type="search" id="search-input" class="py-2.5 px-4 pl-10 block w-full border-neutral-300 rounded-lg text-sm focus:border-primary focus:ring-primary shadow-sm" placeholder="Cerca Equazioni Differenziali...">
+                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-3"><svg class="h-5 w-5 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div>
+                </div>
+            </header>
+            
+            <div id="search-results-container" class="mb-6" style="display: none;" aria-live="polite">
+                <h3 class="text-xl font-semibold text-neutral-800 mb-3">Risultati Ricerca:</h3>
+                <div id="search-results-output"></div>
+            </div>
+
+            <div id="actual-content-container">
+                <section aria-labelledby="section-title-eq-diff">
+                    <h2 id="section-title-eq-diff" class="text-3xl font-bold text-neutral-800 mb-6">Equazioni Differenziali</h2>
+                    <p class="text-lg text-neutral-700 mb-4 intro-text">
+                        Le equazioni differenziali sono equazioni che legano una funzione incognita alle sue derivate. Sono strumenti potentissimi per modellare fenomeni di cambiamento in fisica, biologia, economia, ingegneria e molte altre discipline.
+                    </p>
+
+                    <!-- Interactive Slope Field Visualizer -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Campo di Direzione (Slope Field) Interattivo</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Visualizza il campo di direzione per un'equazione differenziale del primo ordine $y' = f(x,y)$. Seleziona una $f(x,y)$ e clicca su un punto del grafico per tracciare una possibile soluzione (curva integrale).</p>
+                        <div id="slope-field-visualizer">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                    <!-- Video Placeholder -->
+                    <!-- [VIDEO QUI: Introduzione ai campi di direzione e al concetto di soluzione di un'EDO] -->
+
+                     <!-- Interactive First Order Linear ODE Solver (Placeholder) -->
+                    <div class="interactive-container my-8 p-6 rounded-lg shadow-lg" id="first-order-linear-ode-solver">
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-3">Risolutore EDO Lineari del Primo Ordine $y' + P(x)y = Q(x)$</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Inserisci le funzioni $P(x)$ e $Q(x)$ per trovare la soluzione generale. (In sviluppo: per ora solo esempi specifici)</p>
+                        <p class="text-xs text-gray-500">Es. $y' + 2y = x$. Qui $P(x)=2, Q(x)=x$. La soluzione generale è $y(x) = Ce^{-2x} + \frac{x}{2} - \frac{1}{4}$.</p>
+                    </div>
+                    <!-- Video Placeholder -->
+                    <!-- [VIDEO QUI: Metodo del fattore integrante per EDO lineari del primo ordine] -->
+
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-8 mb-4">Teoria Essenziale</h3>
+                    <div class="space-y-4">
+                        <p><strong>Classificazione:</strong>
+                            <ul class="list-disc list-inside ml-4">
+                                <li><strong>Ordine:</strong> Massimo ordine di derivata presente.</li>
+                                <li><strong>Lineari vs Non Lineari:</strong> Lineare se la funzione incognita e le sue derivate appaiono con grado 1 e non sono moltiplicate tra loro.</li>
+                                <li><strong>Omogenee vs Non Omogenee (per EDO lineari):</strong> Omogenea se il termine noto (che non dipende da $y$ o sue derivate) è zero.</li>
+                            </ul>
+                        </p>
+                        <p><strong>Equazioni Differenziali Ordinarie (EDO) del Primo Ordine:</strong></p>
+                         <ul class="list-disc list-inside ml-4">
+                            <li><strong>A Variabili Separabili:</strong> Della forma $y' = f(x)g(y)$. Si risolvono separando le variabili: $\int \frac{1}{g(y)}dy = \int f(x)dx$.</li>
+                            <li><strong>Lineari:</strong> Della forma $y' + P(x)y = Q(x)$. Soluzione generale: $y(x) = e^{-\int P(x)dx} \left( \int Q(x)e^{\int P(x)dx}dx + C \right)$.</li>
+                        </ul>
+                        <p><strong>EDO Lineari del Secondo Ordine a Coefficienti Costanti Omogenee:</strong></p>
+                        <p>Della forma $ay'' + by' + cy = 0$. Si cerca una soluzione del tipo $y=e^{rx}$. Questo porta all'<strong>equazione caratteristica</strong> $ar^2 + br + c = 0$.
+                            <ul class="list-disc list-inside ml-8">
+                                <li>Se $\Delta = b^2-4ac > 0$ (radici reali distinte $r_1, r_2$): $y(x) = C_1e^{r_1x} + C_2e^{r_2x}$.</li>
+                                <li>Se $\Delta = 0$ (radice reale doppia $r$): $y(x) = (C_1 + C_2x)e^{rx}$.</li>
+                                <li>Se $\Delta < 0$ (radici complesse coniugate $\alpha \pm i\beta$): $y(x) = e^{\alpha x}(C_1\cos(\beta x) + C_2\sin(\beta x))$.</li>
+                            </ul>
+                        </p>
+                        <p><strong>Problema di Cauchy:</strong> Un'EDO accompagnata da condizioni iniziali (es. $y(x_0)=y_0$ per il primo ordine, o $y(x_0)=y_0, y'(x_0)=y'_0$ per il secondo ordine) che permettono di determinare le costanti arbitrarie $C, C_1, C_2$.</p>
+                    </div>
+                    
+    
+                    <h3 class="text-2xl font-semibold text-neutral-800 mt-10 mb-4">Esercizi</h3>
+                    <p class="text-neutral-600 mb-6">Risolvi le seguenti equazioni differenziali.</p>
+                    
+                    <!-- Parametric Exercise 1 -->
+                    <div class="parametric-exercise" data-section="equazioni-differenziali" data-exercise-id="separable-ode-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 1: EDO a Variabili Separabili</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 2 -->
+                    <div class="parametric-exercise" data-section="equazioni-differenziali" data-exercise-id="linear-first-order-ode-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 2: EDO Lineare del Primo Ordine</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+                    
+                    <!-- Parametric Exercise 3 -->
+                    <div class="parametric-exercise" data-section="equazioni-differenziali" data-exercise-id="second-order-homogeneous-ode-parametric">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio Parametrico 3: EDO Lineare Omogenea del Secondo Ordine a Coefficienti Costanti</h4>
+                        <div class="exercise-text">Caricamento esercizio...</div>
+                        <button class="generate-btn">Genera Nuovi Parametri</button>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content">Caricamento soluzione...</div>
+                    </div>
+
+                    <!-- Parametric Exercise 4 & 5 (Placeholders) -->
+                    <p class="text-center text-neutral-500 my-4 italic">(Placeholder per Esercizio Parametrico 4: Problema di Cauchy per EDO 1° Ordine e 5: Applicazione fisica (es. decadimento radioattivo))</p>
+                    
+                    <!-- Static Exercises (Placeholders for 10 more) -->
+                    <div class="mt-6 p-4 border border-neutral-200 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Esercizio 6: Risolvi $y' = ky$</h4>
+                        <button class="solution-toggle group" aria-expanded="false">
+                            <span class="toggle-text">Mostra soluzione</span>
+                            <svg class="toggle-icon-svg group-hover:text-indigo-700 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="solution-content"><p>È a variabili separabili: $\frac{dy}{y} = k dx$. Integrando: $\int \frac{1}{y}dy = \int k dx \implies \ln|y| = kx + C_1$.<br>Quindi $|y| = e^{kx+C_1} = e^{C_1}e^{kx}$. Posto $C = \pm e^{C_1}$, si ha $y(x) = Ce^{kx}$.</p></div>
+                    </div>
+                    <p class="text-center text-neutral-500 my-8 italic">(Altri 9 esercizi standard verranno aggiunti qui)</p>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/interactive.js"></script>
+    <script src="../js/equazioni-differenziali.js"></script>
+</body>
+</html>
